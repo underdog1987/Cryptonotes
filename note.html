@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="description" content="Cryptonotes. A decentralized paste tool that saves data in blockchain">
+		<meta name="title" content="CryptonotesBSC | Paste tools became crypto">
+		<title>CryptonotesBSC | Paste tools became crypto</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<meta property="og:url" content="https://underdog1987.keybase.pub/cryptonotes" />
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content="CryptonotesBSC | Paste tools became crypto" />
+		<meta property="og:description" content="Cryptonotes. A decentralized paste tool that saves data in blockchain" />
+		<meta property="og:image" content="https://underdog1987.keybase.pub/cryptonotes/images/thumb.jpg" />
+		<meta property="og:image:type" content="image/jpg" />
+		<meta property="og:image:width" content="827" />
+		<meta property="og:image:height" content="432" />
+		<meta name="twitter:card" content="summary_large_image">
+		<meta name="twitter:site" content="@Underdog1987">
+		<meta name="twitter:title" content="CryptonotesBSC | Paste tools became crypto">
+		<meta name="twitter:description" content="Cryptonotes. A decentralized paste tool that saves data in blockchain">
+		<meta name="twitter:image" content="https://underdog1987.keybase.pub/cryptonotes/images/thumb.jpg">
+		<link rel="shortcut icon" type="image/png" href="https://underdog1987.keybase.pub/cryptonotes/images/favicon-192.png" />
+		<link rel="shortcut icon" type="image/x-icon" href="https://underdog1987.keybase.pub/cryptonotes/images/favicon.ico" />
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://underdog1987.keybase.pub/cryptonotes/assets/css/dapp.css" />
+	</head>
+	<body>
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<a class="navbar-brand" href="#">
+				<img src="https://underdog1987.keybase.pub/cryptonotes/images/favicon-192.png" width="30" height="30" class="d-inline-block align-top" alt="Cryptonotes Logo">
+			</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item">
+						<a class="nav-link" href="https://underdog1987.keybase.pub/cryptonotes">Home</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link active" href="https://underdog1987.keybase.pub/cryptonotes/dapp.html">Create note<span class="sr-only">(current)</span></a>
+					</li>
+				</ul>
+				<form class="form-inline my-2 my-lg-0">
+					<button class="btn btn-outline-success my-2 my-sm-0 d-none" type="button" id="wConnect" title="Connect Metamask">Connect Wallet</button>
+					<button class="btn btn-outline-success my-2 my-sm-0 d-none" type="button" id="wDisconnect" title="Disconnect Metamask"></button>
+				</form>
+			</div>
+		</nav>
+		<div class="container py-5">
+			<div class="row mb-4">
+				<div class="col-md-10 mx-auto text-left">
+                    <h1 class="display-4"><span id="individual-note-title"></span></h1>
+                    <p><small><i class="fa fa-user"></i> <span id="individual-note-author"></span></small></p>
+                    <p><small><i class="fa fa-clock"></i> <span id="individual-note-createdat"></span></small></p>
+                    <p><small><i class="fa fa-link"></i> <span id="individual-note-permalink"></span></small></p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-11 mx-auto">
+					<div class="bg-white rounded-lg shadow-sm p-2">
+                        <pre id="individual-note-body"></pre>
+					</div>
+                    <div class="alert alert-danger d-none" id="get-note-error">
+                        <p>Unable to retreive note. Debug information is shown below:</p>
+                        <pre id="debugInfo"></pre>
+                    </div>
+				</div>
+			</div>
+            <div class="row" id="share-note">
+                <div class="col-md-11 mx-auto">
+                    <h4 class="mt-4">Share this note:</h4>
+                    <div class="text-left">
+                        <script src="https://yastatic.net/es5-shims/0.0.2/es5-shims.min.js"></script>
+                        <script src="https://yastatic.net/share2/share.js" async></script>
+                        <div class="ya-share2" data-services="facebook,twitter,linkedin,whatsapp,telegram,collections,vkontakte"
+                            data-shape="round"></div>
+                    </div>
+                </div>
+            </div>
+		</div>
+
+
+
+		<div class="modal fade" id="modal-tx-wait" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+			<div class="modal-dialog modal-dialog-centered" role="document">                        
+				<div class="modal-content">                    
+					<div class="modal-body">                
+						<p id="lbl-dialog">Waiting for transaction confirmation. Please wait...</p>
+						<div id="tx-confirmed" class="alert-info p-3 d-none">
+							<p>Transaction Confirmed! <a id="view-tx" href="" target="_blank" title="View transaction in explorer">(view in BSC Scan)</a></p>
+							<h3>Your note <span id="note-title"></span> has been created</h3>
+							<p>Make sure you save this id, it will be used to retreive the note in the future</p>
+							<pre id="note-id" class="text-center"></pre>
+							<div class="mt-3">
+								<small><a id="permalink-note" href=""></a></small>
+							</div>
+						</div>
+						<div id="tx-fail" class="alert-danger p-3 d-none">
+							<p>Transaction Failed</p>
+						</div>
+						<div id="close-modal-tx" class="d-none text-right">
+							<button data-dismiss="modal" class="btn btn-primary m-3">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="modal-errores" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+			<div class="modal-dialog modal-dialog-centered" role="document">                        
+				<div class="modal-content">                    
+					<div class="modal-body" id="modal-content">
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal" id="modal-loader" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+			<div class="modal-dialog modal-dialog-centered" role="document">                        
+				<div class="modal-content">                    
+					<div class="alert alert-primary">
+						<span style="font-size: 1.1rem;;">👀 We are looking the note, please wait...</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<footer id="footer">
+			<ul class="icons">
+				<li><a href="https://github.com/underdog1987/Cryptonotes" target="_blank" class="icon"><span class="fab fa-github"></span></a></li>
+				<li><a href="https://twitter.com/CryptonotesBSC" target="_blank" class="icon"><span class="fab fa-twitter"></span></a></li>
+			</ul>
+			<p class="copyright">&copy; Cryptonotes. Made with ❤️ in Tizayuca, Hidalgo 🇲🇽.<br />
+				If found this project useful, consider make a donation.<br />Send any amount of BNB to the
+				contract address <strong id="tx-caddress"></strong>
+			</p>
+			<p class="copyright">Template: <a href="http://html5up.net" target="_blank">HTML5 UP</a></p>
+			<hr />
+			<p>Other proyects</p>
+			<a title="Ferrascoin" target="_blank" href="https://ferrascoin.com"><img class="ferras-logo" src="https://underdog1987.keybase.pub/cryptonotes/images/ferras-accepted-here.png" /></a>
+		</footer>
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+		<script src="https://underdog1987.keybase.pub/cryptonotes/assets/js/web3.min.js"></script>
+		<script src="https://underdog1987.keybase.pub/cryptonotes/assets/js/cryptonotes-core.js"></script>
+		<script src="https://underdog1987.keybase.pub/cryptonotes/assets/js/note.js"></script>
+	</body>
+</html>
