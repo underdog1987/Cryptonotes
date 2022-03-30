@@ -1,0 +1,40 @@
+========================================
+|             Cryptonotes              |
+========================================
+               Whitepaper
+          (Release Candidate 1)
+
+** Abstract **
+Cryptonotes is a decentralized app similar to Pastebin, but it saves data in blockchain.
+
+1. INTRODUCTION
+Paste tools like Pastebin are useful to save any kind of message, from source code, to PGP encryption keys through simple notes, letters, lyrics, etc.
+Most of current paste tools have something in common: stores data in a
+traditional database, i.e. MySQL, Postgres, or MongoDB. Those databases can be modified or deleted in any time.
+
+2. PROJECT DESCRIPTION
+Cryptonotes is a paste tool, but instead of save data in a traditional database is saves data in blockchain. Its contract is deployed in Binance Smart Chain.
+
+There are some advantages of save data in blockchain:
+
+i) Notes are immutable: Every created note is a transaction in BSC network, its content cannot be changed.
+
+ii) No risk of database lost: Your notes will be safe forever.
+
+iii) Decentralized: Your notes are always accesible.
+
+iv) Open source: Everybody with minimum web development knowledge can create a Cryptonotes-clinet.
+
+Unfortunately there are some things that can be considered unadvantages:
+
+i) Zero privacy: All data stored in a public blockchain is accesible for everybody. Cryptonotes it should not be used to save private and/or personal data.
+
+ii) Expensive gas prices: Depending on BNB price against BUSD, gas fee could be expensive, specially in large notes.
+
+3. ROADMAP
+- TBD. Deploy of Ethereum-version of Cryptonotes.
+- TBD. Deploy of Cryptonotes-client in IPFS.
+
+4. DONATIONS
+If found this project useful, consider make a donation. Send any amount of BNB to the contract address 0x68d36D43b8a55B16E35fc517c987Bd171b59E662
+
